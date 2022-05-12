@@ -60,6 +60,6 @@ def normaliza(dic):
     for c, v in dic.items():
         for c2, v2 in v.items():
             final[c2] = v2
-            final[c2]['continete'] = c
+            final[c2]['continente'] = c
 
     return final
