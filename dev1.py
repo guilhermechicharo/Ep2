@@ -53,4 +53,13 @@ def sorteia_letra(palavra,lista):
         return ''
     final = random.choice(nl)
     return final
-    
+
+
+def normaliza(dic):
+    final = {}
+    for c, v in dic.items():
+        for c2, v2 in v.items():
+            final[c2] = v2
+            final[c2]['continete'] = c
+
+    return final
