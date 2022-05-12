@@ -20,4 +20,4 @@ dadosnormalizados = dev1.normaliza(dadoscerto)
 
 #sorteando pais
 pais = dev1.sorteia_pais(dadosnormalizados)
-print(pais)
+
