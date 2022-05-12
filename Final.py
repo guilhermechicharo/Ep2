@@ -21,3 +21,9 @@ dadosnormalizados = dev1.normaliza(dadoscerto)
 #sorteando pais
 pais = dev1.sorteia_pais(dadosnormalizados)
 
+for t in range (20):
+    tentativa = input('Qual seu palpite?')
+    tentativa = tentativa.lower
+    if tentativa == 'dica':
+        print()
+
