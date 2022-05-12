@@ -1,5 +1,6 @@
 import dev1
 import json
+import random
 
 EARTH_RADIUS = 6371
 
@@ -14,4 +15,9 @@ dadoscerto =  json.loads(texto)
 
 dadosnormalizados = dev1.normaliza(dadoscerto)
 
-print (dadosnormalizados)
+
+
+
+#sorteando pais
+pais = dev1.sorteia_pais(dadosnormalizados)
+print(pais)
