@@ -48,11 +48,13 @@ while i <= tmax:
             lb = dadosnormalizados[tentativa]['geo']['latitude']
             yb = dadosnormalizados[tentativa]['geo']['longitude']
             d = (dev1.haversine(raio_terra,la,ya,lb,yb))
+        
 
+            distancias = dev1.adiciona_em_ordem(tentativa,d,distancias)
+            for f in range(len(distancias)):
+                print('{0: .3f} km -> {1}'.format((distancias[f][1])/1000,distancias[f][0]))
 
-            distancias.append('{0: .3f} km -> {1}'.format(d/1000,tentativa))
-
-            print('\n'.join(distancias))
+            
             i += 1
             
             print('Você tem {0} tentativa(s)'.format(tmax-i))
