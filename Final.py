@@ -2,7 +2,7 @@ import dev1
 import json
 import random
 
-EARTH_RADIUS = 6371
+raio_terra = 6371
 
 #Abre o arquivo e transforma em um dicionario
 
@@ -25,13 +25,16 @@ for c,v in dadosnormalizados.items():
 pais = dev1.sorteia_pais(dadosnormalizados)
 i = 0
 lista_paises = []
+tmax = 20
+distancias = []
+
 
 print(pais)
 
 print('Um país foi escolhido, tente adivinhar!')
 print('Você tem 20 tentativa(s)')
 
-while i <= 20:
+while i <= tmax:
     tentativas = input('Qual seu palpite?')
     tentativa = tentativas.lower()
     if tentativa in nl:
@@ -40,14 +43,25 @@ while i <= 20:
             print ('Você acertou!')
             break
         else:
+            la = dadosnormalizados[pais]['geo']['latitude']
+            ya = dadosnormalizados[pais]['geo']['longitude']
+            lb = dadosnormalizados[tentativa]['geo']['latitude']
+            yb = dadosnormalizados[tentativa]['geo']['longitude']
+            d = (dev1.haversine(raio_terra,la,ya,lb,yb))
+
+
+            distancias.append('{0: .3f} km -> {1}'.format(d/1000,tentativa))
+
+            print('\n'.join(distancias))
             i += 1
-            print('Você tem {0} tentativa(s)'.format(20-i))
-            if i== 20:
+            
+            print('Você tem {0} tentativa(s)'.format(tmax-i))
+            if i== tmax:
                 print('>>> Você perdeu, o país era: {0}'.format(pais))
                 break
     else:
         print ('Pais desconhecido')
-        print ('Você tem {0} tentativa(s)'.format(20-i))
+        print ('Você tem {0} tentativa(s)'.format(tmax-i))
 
     
     
