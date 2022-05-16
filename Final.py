@@ -33,6 +33,10 @@ cores = []
 naopalavras = []
 listacores = []
 
+#inventario
+inventario_dicas = []
+inventario_dist = []
+
 #Forma lista com cores da bandeira
 coresbandeira = dadosnormalizados[pais]['bandeira']
 for a in coresbandeira:
@@ -40,6 +44,7 @@ for a in coresbandeira:
         cores.append(a)
         if 'outras' in cores:
             cores.remove('outras')
+
 #forma lista com letras da capital
 capital = dadosnormalizados[pais]['capital']
 lista_letras = []
@@ -49,7 +54,7 @@ lista_letras_final = []
 dicas = ['----------------------------------------','1. Cor da bandeira  - custa 4 tentativas','2. Letra da capital - custa 3 tentativas','3. Área             - custa 6 tentativas','4. População        - custa 5 tentativas','5. Continente       - custa 7 tentativas','0. Sem dica','----------------------------------------']
 
 
-print(pais)
+
 
 #Início do Jogo, Instruções
 print('============================')
@@ -92,6 +97,7 @@ while i <= tmax:
             distancias = dev1.adiciona_em_ordem(tentativa,d,distancias)
             for f in range(len(distancias)):
                 print('{0: .3f} km -> {1}'.format((distancias[f][1])/1000,distancias[f][0]))
+                inventario_dist.append('{0: .3f} km -> {1}'.format((distancias[f][1])/1000,distancias[f][0]))
             i += 1
             
             print('Você tem {0} tentativa(s)'.format(tmax-i))
@@ -111,24 +117,33 @@ while i <= tmax:
             cores.remove(corescolhida)
             listacores.append(corescolhida)
             print(('\n').join(listacores))
+            inventario_dicas.append(corescolhida)
         if dc == '2':
             #Dica capital
             tmax -= 3
             letra = dev1.sorteia_letra(capital,lista_letras)
             lista_letras_final.append(letra)
             print(('\n').join(lista_letras_final))
+            inventario_dicas.append(letra)
 
 
-                
-    if tentativa not in nl and tentativa != 'dica':
-        print ('Pais desconhecido')
-        print ('Você tem {0} tentativa(s)'.format(tmax-i))
-
+    # desistencia
     if tentativa == 'desisto':
         desisto = input('Tem certeza que deseja desistir da rodada? [s/n]')
         if desisto == 's':
-            print('>>> Essa tava moleza!! O senhor ficou nervoso, o pais era: {0}'.format(pais))           
+            print('>>> Essa tava moleza!! O senhor ficou nervoso, o pais era: {0}'.format(pais)) 
+            jn = input('Jogar novamente?[s/n]')
+            if jn =='s':
+                continuar = True   
 
+    if tentativa == 'inventario':
+        print('Dicas:')
+        print((inventario_dicas))
+        print('Distancias:')
+        print(inventario_dist)       
+    if tentativa not in nl and tentativa != 'dica'and tentativa != 'desisto' and tentativa != 'inventario':
+        print ('Pais desconhecido')
+        print ('Você tem {0} tentativa(s)'.format(tmax-i))
     
 
 
