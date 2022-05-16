@@ -40,6 +40,11 @@ for a in coresbandeira:
         cores.append(a)
         if 'outras' in cores:
             cores.remove('outras')
+#forma lista com letras da capital
+capital = dadosnormalizados[pais]['capital']
+lista_letras = []
+lista_letras_final = []
+
 
 dicas = ['----------------------------------------','1. Cor da bandeira  - custa 4 tentativas','2. Letra da capital - custa 3 tentativas','3. Área             - custa 6 tentativas','4. População        - custa 5 tentativas','5. Continente       - custa 7 tentativas','0. Sem dica','----------------------------------------']
 
@@ -106,6 +111,14 @@ while i <= tmax:
             cores.remove(corescolhida)
             listacores.append(corescolhida)
             print(('\n').join(listacores))
+        if dc == '2':
+            #Dica capital
+            tmax -= 3
+            letra = dev1.sorteia_letra(capital,lista_letras)
+            lista_letras_final.append(letra)
+            print(('\n').join(lista_letras_final))
+
+
                 
     if tentativa not in nl and tentativa != 'dica':
         print ('Pais desconhecido')
