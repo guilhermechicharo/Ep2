@@ -33,6 +33,7 @@ cores = []
 naopalavras = []
 listacores = []
 
+#Forma lista com cores da bandeira
 coresbandeira = dadosnormalizados[pais]['bandeira']
 for a in coresbandeira:
     if coresbandeira[a] > 0:
@@ -45,66 +46,81 @@ dicas = ['----------------------------------------','1. Cor da bandeira  - custa
 
 print(pais)
 
+#Início do Jogo, Instruções
+print('============================')
+print('|                          |')
+print(' Bem-vindo ao Insper Paises ')
+print('|                          |')
+print('==== Design de Software ===')
+
+print('Comandos:')
+
+print(' dica       - entra no mercado de dicas')
+print(' desisto    - desiste da rodada' )
+print(' inventario - exibe sua posição')
+
+
+
 print('Um país foi escolhido, tente adivinhar!')
 print('Você tem 20 tentativa(s)')
 
+
 while i <= tmax:
+    #Palpite
     tentativas = input('Qual seu palpite?')
     tentativa = tentativas.lower()
     if tentativa in nl:
         lista_paises.append(tentativa)
         if tentativa == pais:
             print ('Você acertou!')
-            break
+            break 
+            #Vitória!!
         else:
+            #Calculo da distancia
             la = dadosnormalizados[pais]['geo']['latitude']
             ya = dadosnormalizados[pais]['geo']['longitude']
             lb = dadosnormalizados[tentativa]['geo']['latitude']
             yb = dadosnormalizados[tentativa]['geo']['longitude']
             d = (dev1.haversine(raio_terra,la,ya,lb,yb))
         
-        
-
+            #Adiciona em ordem        
             distancias = dev1.adiciona_em_ordem(tentativa,d,distancias)
             for f in range(len(distancias)):
                 print('{0: .3f} km -> {1}'.format((distancias[f][1])/1000,distancias[f][0]))
-
-            
             i += 1
             
             print('Você tem {0} tentativa(s)'.format(tmax-i))
             if i== tmax:
                 print('>>> Você perdeu, o país era: {0}'.format(pais))
-                break
+                break 
+                #Derrota :(
     if tentativa == 'dica':
+        #Dicas
         print('Mercado de dicas')
         print(('\n').join(dicas))
         dc = input('Escolha sua opção [0|1|2|3|4|5]:')
         if dc == '1':
+            #Dicas de cores
             tmax -= 4
             corescolhida = random.choice(cores)
             cores.remove(corescolhida)
             listacores.append(corescolhida)
             print(('\n').join(listacores))
                 
-
-    
-
-     
-
-
-                            
-                    
-
-
-
-
-    else:
+    if tentativa not in nl and tentativa != 'dica':
         print ('Pais desconhecido')
         print ('Você tem {0} tentativa(s)'.format(tmax-i))
 
+    if tentativa == 'desisto':
+        desisto = input('Tem certeza que deseja desistir da rodada? [s/n]')
+        if desisto == 's':
+            print('>>> Essa tava moleza!! O senhor ficou nervoso, o pais era: {0}'.format(pais))           
+
     
+
+
     
+
     
             
     
